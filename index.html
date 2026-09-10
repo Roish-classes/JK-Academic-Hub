@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="JK Academic Hub - Mechanical Engineering and General Studies learning resources by Jagdeep Kumar.">
+<title>JK Academic Hub | Jagdeep Kumar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="top-strip"><div class="container top-inner"><span>SOBHASARIA GROUP OF INSTITUTIONS • SIKAR</span><span>Mechanical Engineering • Student Learning Portal</span></div></div>
+
+<header class="header">
+  <div class="container nav">
+    <a href="#home" class="brand"><span class="brand-mark">JK</span><span><b>JK Academic Hub</b><small>Learn • Understand • Practice • Achieve</small></span></a>
+    <button id="menuBtn" class="menu-btn">☰</button>
+    <nav id="navLinks">
+      <a href="#about">About</a>
+      <a href="#mechanical">Mechanical</a>
+      <a href="#gs">General Studies</a>
+      <a href="#mcq">MCQ Tests</a>
+      <a href="#visuals">Infographics</a>
+      <a href="#feedback">Feedback</a>
+      <a class="nav-login" href="student.html">Student Login</a>
+    </nav>
+  </div>
+</header>
+
+<main id="home">
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <div class="pill"><span></span> ACADEMIC LEARNING PORTAL</div>
+      <h1>Make every difficult concept <em>easier to understand.</em></h1>
+      <p class="lead">Notes, visual explanations, videos, reference material, MCQ practice and General Studies resources — organised for students in one place.</p>
+      <div class="hero-buttons">
+        <a class="btn primary" href="#mechanical">Explore Subjects →</a>
+        <a class="btn ghost" href="#mcq">Take an MCQ Test</a>
+      </div>
+      <div class="hero-metrics">
+        <div><strong>12+</strong><span>Teaching / academic experience*</span></div>
+        <div><strong>10</strong><span>Mechanical learning areas</span></div>
+        <div><strong>GS 1–4</strong><span>General Studies coverage</span></div>
+      </div>
+      <small class="fine">*The latest uploaded CV version describes current experience and academic responsibilities; see About for source-based details.</small>
+    </div>
+    <div class="profile-card">
+      <div class="profile-glow"></div>
+      <img src="assets/jagdeep-kumar.png" alt="Jagdeep Kumar">
+      <div class="profile-info">
+        <span class="role">ASSISTANT PROFESSOR</span>
+        <h2>Jagdeep Kumar</h2>
+        <p>Department of Mechanical Engineering</p>
+        <p class="institution">Sobhasaria Group of Institutions, Sikar</p>
+        <div class="profile-tags"><span>Thermodynamics</span><span>FEM</span><span>Heat Transfer</span><span>Renewable Energy</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="trust-bar">
+  <div class="container trust-grid">
+    <div><b>Teaching Focus</b><span>Concept clarity + visual learning</span></div>
+    <div><b>Research</b><span>Thermal systems • CFD/FEM • EATHE</span></div>
+    <div><b>Student Support</b><span>Notes • Videos • Practice • Feedback</span></div>
+  </div>
+</section>
+
+<section id="about" class="section">
+<div class="container">
+  <div class="section-head"><div class="kicker">01 / ABOUT ME</div><h2>Academic profile with a student-first approach.</h2><p>A concise profile based on the uploaded CV, with the learning portal designed around the subjects and responsibilities listed there.</p></div>
+  <div class="about-layout">
+    <article class="about-main card">
+      <div class="about-photo"><img src="assets/jagdeep-kumar.png" alt="Jagdeep Kumar"></div>
+      <div>
+        <span class="mini-label">PROFILE</span>
+        <h3>Jagdeep Kumar</h3>
+        <p>Assistant Professor in the Department of Mechanical Engineering at Sobhasaria Group of Institutions, Sikar. The CV records M.Tech in CAD (2012) with 71.25% and B.Tech in Mechanical Engineering (2009) with 72.38% (Honours).</p>
+        <p>The CV lists teaching experience in Engineering Mechanics, Engineering Graphics, Mechanics of Materials, Mechanical Vibration, Finite Element Method, Thermodynamics, Basics of Mechanical Engineering and Solar Energy Engineering & Technology.</p>
+      </div>
+    </article>
+    <aside class="card credentials">
+      <div><span>EDUCATION</span><b>M.Tech • CAD</b><small>DCRUST Murthal • 2012 • 71.25%</small></div>
+      <div><span></span><b>B.Tech • Mechanical Engineering</b><small>Kurukshetra University • 2009 • 72.38% Honours</small></div>
+      <div><span>LEADERSHIP</span><b>Head, Department of Mechanical Engineering</b><small>SGI Sikar • since Oct. 2018 (as stated in CV)</small></div>
+      <div><span>CERTIFICATION</span><b>NPTEL-SWAYAM</b><small>Elite courses listed from IIT Kanpur and IIT Roorkee, plus additional courses.</small></div>
+    </aside>
+  </div>
+  <div class="research-row">
+    <div><span>RESEARCH INTERESTS</span><b>Thermal Energy Systems • Renewable Energy • CFD/FEM • EATHE • Sustainable Engineering</b></div>
+    <div><span>RESEARCH / PROJECT THEMES</span><b>Composite materials • Solar systems • X-FEM • Solar stills • Hybrid power generation</b></div>
+  </div>
+</div>
+</section>
+
+<section id="mechanical" class="section dark-section">
+<div class="container">
+  <div class="section-head light"><div class="kicker">02 / MECHANICAL ENGINEERING</div><h2>Your complete subject shelf.</h2><p>Filter by subject and instantly see the available notes, videos and reference resources uploaded by the administrator.</p></div>
+  <div class="toolbar">
+    <input id="resourceSearch" class="search" placeholder="🔎 Search notes, videos, topics..." aria-label="Search resources">
+    <select id="resourceFilter"><option value="all">All Mechanical Subjects</option></select>
+  </div>
+  <div id="resourceGrid" class="resource-grid"></div>
+  <div id="resourceEmpty" class="empty" hidden>No resources match your search yet. Upload resources from the Admin Dashboard.</div>
+</div>
+</section>
+
+<section id="gs" class="section">
+<div class="container">
+  <div class="section-head"><div class="kicker">03 / GENERAL STUDIES</div><h2>GS 1 to GS 4 + Current Affairs.</h2><p>Separate shelves make it easy to build an exam-oriented repository over time.</p></div>
+  <div class="gs-tabs" id="gsTabs">
+    <button class="active" data-gs="all">All</button><button data-gs="GS1">GS 1</button><button data-gs="GS2">GS 2</button><button data-gs="GS3">GS 3</button><button data-gs="GS4">GS 4</button><button data-gs="CA">Current Affairs</button>
+  </div>
+  <div id="gsGrid" class="gs-grid"></div>
+</div>
+</section>
+
+<section id="mcq" class="section dark-section">
+<div class="container">
+  <div class="section-head light"><div class="kicker">04 / MCQ PRACTICE</div><h2>Practice. Check. Improve.</h2><p>Start with the built-in question bank. The system records your score in the browser and can later be connected to student accounts.</p></div>
+  <div class="quiz-shell card">
+    <div class="quiz-top"><div><span class="badge">QUICK TEST</span><h3 id="quizTitle">Thermodynamics — Fundamentals</h3></div><div class="quiz-count" id="quizCount">1 / 5</div></div>
+    <div id="quizQuestion" class="quiz-question"></div>
+    <div id="quizOptions" class="quiz-options"></div>
+    <div class="quiz-actions"><button id="prevQ" class="btn ghost">← Previous</button><button id="nextQ" class="btn primary">Next →</button></div>
+    <div id="quizResult" class="quiz-result" hidden></div>
+  </div>
+</div>
+</section>
+
+<section id="visuals" class="section">
+<div class="container">
+  <div class="section-head"><div class="kicker">05 / VISUAL LEARNING</div><h2>Infographics built for quick revision.</h2><p>Use these visual cards as the starting point for uploading your own PNG/JPG infographics or animated explainers.</p></div>
+  <div class="visual-grid">
+    <article class="visual-card"><div class="visual-icon">♨</div><h3>Thermodynamic Cycles</h3><p>Otto • Diesel • Dual • Brayton • Rankine</p><div class="diagram cycle"><i></i><i></i><i></i><i></i></div></article>
+    <article class="visual-card"><div class="visual-icon">⚙</div><h3>Mechanics & FEM</h3><p>Stress • Strain • Bending • Torsion • Meshing</p><div class="diagram mesh"><span></span><span></span><span></span></div></article>
+    <article class="visual-card"><div class="visual-icon">☀</div><h3>Renewable Energy</h3><p>Solar • EATHE • Hybrid systems • Sustainability</p><div class="diagram energy"><b>☀</b><span>→</span><b>⚡</b></div></article>
+    <article class="visual-card"><div class="visual-icon">◎</div><h3>GS Quick Revision</h3><p>Polity • Economy • Environment • Ethics</p><div class="diagram gs"><b>GS</b><span>→</span><b>REV</b></div></article>
+  </div>
+</div>
+</section>
+
+<section id="feedback" class="section soft">
+<div class="container feedback-layout">
+  <div><div class="kicker">06 / STUDENT FEEDBACK</div><h2>Tell me what would help you learn better.</h2><p>Request a topic, report a broken resource, suggest an infographic, or share feedback about the learning experience.</p><div class="quote">“Good teaching is not only about delivering information; it is about making difficult ideas easier to understand.”</div></div>
+  <form id="feedbackForm" class="card feedback-form">
+    <label>Name<input name="name" required placeholder="Your name"></label>
+    <label>Email<input name="email" type="email" placeholder="Optional"></label>
+    <label>Type<select name="type"><option>Feedback</option><option>Topic Request</option><option>Resource Issue</option><option>Suggestion</option></select></label>
+    <label>Message<textarea name="message" rows="5" required placeholder="Write your message..."></textarea></label>
+    <button class="btn primary">Submit Feedback</button><p id="feedbackStatus" class="status"></p>
+  </form>
+</div>
+</section>
+</main>
+
+<footer class="footer"><div class="container footer-grid"><div><div class="brand footer-brand"><span class="brand-mark">JK</span><span><b>JK Academic Hub</b><small>Jagdeep Kumar • Mechanical Engineering</small></span></div><p>Academic learning resources and student support.</p></div><div><p>Sobhasaria Group of Institutions, Sikar</p><p>© <span id="year"></span> Jagdeep Kumar</p></div></div></footer>
+
+<div id="resourceModal" class="modal" hidden><div class="modal-box"><button class="modal-close" id="modalClose">×</button><div id="modalContent"></div></div></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
