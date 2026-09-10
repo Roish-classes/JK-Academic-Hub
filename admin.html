@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin Dashboard | JK Academic Hub</title><link rel="stylesheet" href="styles.css"></head>
+<body>
+<header class="header"><div class="container nav"><a href="index.html" class="brand"><span class="brand-mark">JK</span><span><b>JK Academic Hub</b><small>Administrator Dashboard</small></span></a><a href="index.html" class="btn ghost">← Website</a></div></header>
+<main class="section"><div class="container">
+<div class="section-head"><div class="kicker">ADMIN DASHBOARD</div><h2>Manage your academic resource library.</h2><p>Upload PDFs, videos and infographics, review feedback and see resource statistics.</p></div>
+<div id="loginBox" class="card feedback-form" style="max-width:520px"><h3>Administrator login</h3><label>Email<input id="email" type="email" required></label><label>Password<input id="password" type="password" required></label><button id="loginBtn" class="btn primary">Sign in</button><p id="loginStatus" class="status"></p></div>
+<div id="dashboard" hidden>
+<div class="dashboard-cards" id="stats"></div>
+<div class="admin-grid">
+<section class="card feedback-form"><h3>Upload Resource</h3>
+<label>Section<select id="section"><option>Mechanical Engineering</option><option>General Studies</option><option>Current Affairs</option><option>Infographics</option></select></label>
+<label>Subject<input id="subject" placeholder="e.g. Thermodynamics / GS 3" required></label>
+<label>Title<input id="title" placeholder="Resource title" required></label>
+<label>Type<select id="type"><option>PDF</option><option>Video</option><option>Reference</option><option>Infographic</option></select></label>
+<label>File<input id="file" type="file" accept=".pdf,.mp4,.webm,.png,.jpg,.jpeg" required></label>
+<button id="uploadBtn" class="btn primary">Upload to Resource Library</button><p id="uploadStatus" class="status"></p></section>
+<section class="card"><div class="admin-heading"><h3>Recent resources</h3><button id="refresh" class="btn ghost">Refresh</button></div><div id="resourceTable" class="admin-table"></div></section>
+<section class="card"><div class="admin-heading"><h3>Student feedback</h3><button id="refreshFeedback" class="btn ghost">Refresh</button></div><div id="feedbackTable" class="admin-table"></div></section>
+</div>
+<button id="logout" class="btn ghost">Sign out</button>
+</div></div></main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script>
+<script>
+let client=null,isConfigured=window.SUPABASE_URL&&!window.SUPABASE_URL.includes("PASTE_");if(isConfigured)client=window.supabase.createClient(window.SUPABASE_URL,window.SUPABASE_ANON_KEY);
+const $=id=>document.getElementById(id);
+async function isAdmin(){const {data:{user}}=await client.auth.getUser();if(!user)return false;const {data}=await client.from("profiles").select("role").eq("id",user.id).maybeSingle();return data?.role==="admin"}
+$("loginBtn").onclick=async()=>{if(!client){$("loginStatus").textContent="Configure Supabase in config.js first.";return}const {error}=await client.auth.signInWithPassword({email:$("email").value,password:$("password").value});if(error){$("loginStatus").textContent=error.message;return}if(!(await isAdmin())){await client.auth.signOut();$("loginStatus").textContent="This account is not marked as an admin.";return}$("loginBox").hidden=true;$("dashboard").hidden=false;loadAll()};
+$("logout").onclick=async()=>{await client.auth.signOut();location.reload()};
+$("uploadBtn").onclick=async()=>{const s=$("uploadStatus");if(!client){s.textContent="Supabase not configured.";return}const file=$("file").files[0];if(!file){s.textContent="Choose a file.";return}if(file.size>100*1024*1024){s.textContent="File is larger than 100 MB.";return}s.textContent="Uploading...";const safe=file.name.replace(/[^a-zA-Z0-9._-]/g,"-"),path=`${Date.now()}-${safe}`;const up=await client.storage.from("resources").upload(path,file,{upsert:false});if(up.error){s.textContent=up.error.message;return}const pub=client.storage.from("resources").getPublicUrl(path);const ins=await client.from("resources").insert([{section:$("section").value,subject:$("subject").value,title:$("title").value,resource_type:$("type").value,file_url:pub.data.publicUrl,file_path:path,description:"Uploaded from Admin Dashboard"}]);if(ins.error){s.textContent=ins.error.message;return}s.textContent="Uploaded successfully.";["subject","title","file"].forEach(x=>$(x).value="");loadAll()};
+async function loadAll(){const r=await client.from("resources").select("*").order("created_at",{ascending:false}).limit(30);$("resourceTable").innerHTML=(r.data||[]).map(x=>`<div class="admin-row"><div><b>${esc(x.title)}</b><small>${esc(x.subject)} • ${esc(x.resource_type)}</small></div><a href="${x.file_url}" target="_blank">Open</a></div>`).join("")||"<p>No resources yet.</p>";const f=await client.from("feedback").select("*").order("created_at",{ascending:false}).limit(30);$("feedbackTable").innerHTML=(f.data||[]).map(x=>`<div class="admin-row"><div><b>${esc(x.name)} — ${esc(x.type)}</b><small>${esc(x.message)}</small></div></div>`).join("")||"<p>No feedback yet.</p>";$("stats").innerHTML=`<div class="stat-card"><b>${r.data?.length||0}</b><span>Recent resources</span></div><div class="stat-card"><b>${f.data?.length||0}</b><span>Recent feedback</span></div><div class="stat-card"><b>${new Date().toLocaleDateString()}</b><span>Last dashboard check</span></div>`}
+$("refresh").onclick=loadAll;$("refreshFeedback").onclick=loadAll;function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+</script>
+<style>
+.dashboard-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-bottom:20px}.stat-card{background:#fff;border:1px solid var(--line);border-radius:17px;padding:20px;box-shadow:var(--shadow)}.stat-card b{display:block;font:700 1.5rem "Space Grotesk"}.stat-card span{color:var(--muted);font-size:.72rem}.admin-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:20px}.admin-grid section:nth-child(3){grid-column:1/-1}.admin-heading{display:flex;align-items:center;justify-content:space-between}.admin-heading h3{font-family:"Space Grotesk"}.admin-table{max-height:420px;overflow:auto}.admin-row{display:flex;justify-content:space-between;gap:15px;padding:13px 0;border-bottom:1px solid var(--line);font-size:.75rem}.admin-row b,.admin-row small{display:block}.admin-row small{color:var(--muted)}.admin-row a{color:var(--blue);font-weight:800}@media(max-width:850px){.dashboard-cards,.admin-grid{grid-template-columns:1fr}.admin-grid section:nth-child(3){grid-column:auto}}
+</style></body></html>

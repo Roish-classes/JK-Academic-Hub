@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Student Login | JK Academic Hub</title><link rel="stylesheet" href="styles.css"></head>
+<body>
+<header class="header"><div class="container nav"><a href="index.html" class="brand"><span class="brand-mark">JK</span><span><b>JK Academic Hub</b><small>Student Portal</small></span></a><a href="index.html" class="btn ghost">← Home</a></div></header>
+<main class="section"><div class="container" style="max-width:520px">
+<div class="section-head"><div class="kicker">STUDENT PORTAL</div><h2>Sign in to your learning space.</h2><p>Use the same account to access personalised resources when the portal backend is connected.</p></div>
+<div class="card feedback-form">
+<div class="gs-tabs"><button id="loginTab" class="active">Login</button><button id="signupTab">Create account</button></div>
+<form id="authForm"><label>Email<input name="email" type="email" required></label><label>Password<input name="password" type="password" minlength="6" required></label><button class="btn primary" id="authBtn">Sign in</button><p id="authStatus" class="status"></p></form>
+<div id="studentPanel" hidden><h3>Welcome, <span id="studentEmail"></span></h3><p>Your account is active. You can now use the learning portal.</p><a class="btn primary" href="index.html#mechanical">Open Learning Hub</a><button id="logout" class="btn ghost">Sign out</button></div>
+</div></div></main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script>
+<script>
+let client=null,isConfigured=window.SUPABASE_URL&&!window.SUPABASE_URL.includes("PASTE_");if(isConfigured)client=window.supabase.createClient(window.SUPABASE_URL,window.SUPABASE_ANON_KEY);
+let mode="login";const form=document.getElementById("authForm"),status=document.getElementById("authStatus");
+document.getElementById("loginTab").onclick=()=>{mode="login";document.getElementById("loginTab").classList.add("active");document.getElementById("signupTab").classList.remove("active");document.getElementById("authBtn").textContent="Sign in"};
+document.getElementById("signupTab").onclick=()=>{mode="signup";document.getElementById("signupTab").classList.add("active");document.getElementById("loginTab").classList.remove("active");document.getElementById("authBtn").textContent="Create account"};
+form.onsubmit=async e=>{e.preventDefault();if(!client){status.textContent="Configure Supabase in config.js first.";return}const d=Object.fromEntries(new FormData(form).entries());let res=mode==="login"?await client.auth.signInWithPassword({email:d.email,password:d.password}):await client.auth.signUp({email:d.email,password:d.password});if(res.error){status.textContent=res.error.message;return}status.textContent=mode==="signup"?"Account created. Check your email if confirmation is enabled.":"Signed in successfully.";showUser(res.data.user||res.data.session?.user)};
+async function showUser(user){if(!user)return;form.hidden=true;document.querySelector(".gs-tabs").hidden=true;document.getElementById("studentPanel").hidden=false;document.getElementById("studentEmail").textContent=user.email}
+document.getElementById("logout").onclick=async()=>{await client.auth.signOut();location.reload()};
+if(client)client.auth.getUser().then(({data})=>{if(data.user)showUser(data.user)});
+</script></body></html>
