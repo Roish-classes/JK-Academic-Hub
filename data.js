@@ -6,8 +6,9 @@ const MECHANICAL_SUBJECTS = [
  {id:"fem",name:"Finite Element Method",icon:"▦",desc:"Formulation, meshing, FEM and applications"},
  {id:"thermo",name:"Thermodynamics",icon:"♨",desc:"Properties, laws, entropy and cycles"},
  {id:"heat",name:"Heat Transfer",icon:"♨",desc:"Conduction, convection, radiation and exchangers"},
- {id:"basic",name:"Basics of Mechanical Engineering",icon:"⚙",desc:"Core concepts for undergraduate students"},
- {id:"solar",name:"Solar Energy Engineering",icon:"☀",desc:"Solar thermal, PV systems and applications"},
+{id:"basic",name:"Basics of Mechanical Engineering",icon:"⚙️",desc:"Core concepts of mechanical engineering"},
+{id:"eme",name:"Elements of Mechanical Engineering (EME)",icon:"🔧",desc:"Fundamental concepts of mechanical engineering"},
+{id:"solar",name:"Solar Energy Engineering",icon:"☀️",desc:"Solar thermal and photovoltaic systems"},
  {id:"renewable",name:"Renewable Energy",icon:"♻",desc:"Solar, wind, hybrid systems and sustainability"}
 ];
 
